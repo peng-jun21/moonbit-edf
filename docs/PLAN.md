@@ -9,7 +9,7 @@
 规范：
 - https://www.edfplus.info/specs/edf.html
 - https://www.edfplus.info/specs/edfplus.html
-- https://www.biosemi.com/faq/file_format.htm （官方 BDF 页面请求失败，继续使用 edflib/pyedflib 维护者原始文档和参考输出核验）
+- https://www.biosemi.com/faq/file_format.htm （直接打开失败，后续官方站点搜索成功读取格式说明，与 pyedflib 输出交叉核验）
 - https://pyedflib.readthedocs.io/en/latest/
 
 按公开规范独立实现，不复制 pyedflib/edflib 源码。Python/C 库仅开发验证依赖。原始 EDF+ 支持负增益（physical_max 可小于 physical_min）、duration=0 的特殊记录、注释通道内按字节排列的 UTF-8，不能用常见的简化假设替代这些规则。
