@@ -1,0 +1,161 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "localreview/edf"
+
+import {
+  "moonbitlang/core/debug",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub fn create(Array[Signal], Array[Record], Double, format? : Format, continuity? : Continuity, start? : DateTime, patient? : String) -> Recording raise EdfError
+
+pub fn decode(Bytes) -> Recording raise EdfError
+
+pub fn encode_tals(Array[Tal], Int) -> Bytes raise EdfError
+
+pub fn parse_datetime(String, String) -> DateTime raise EdfError
+
+pub fn parse_header(Bytes) -> Header raise EdfError
+
+pub fn parse_tals(Bytes) -> Array[Tal] raise EdfError
+
+// Errors
+pub suberror EdfError {
+  Invalid(String)
+  Unsupported(String)
+  Limit(String)
+} derive(@debug.Debug)
+
+// Types and methods
+pub struct Annotation {
+  record : Int
+  signal : Int
+  onset : Double
+  duration : Double?
+  text : String
+} derive(ToJson, @debug.Debug)
+
+pub(all) enum Continuity {
+  Plain
+  Continuous
+  Discontinuous
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct DateTime {
+  year : Int
+  month : Int
+  day : Int
+  hour : Int
+  minute : Int
+  second : Int
+} derive(ToJson, @debug.Debug)
+pub fn DateTime::advance(Self, Int) -> Self raise EdfError
+pub fn DateTime::date_field(Self) -> String raise EdfError
+pub fn DateTime::time_field(Self) -> String raise EdfError
+
+pub(all) struct Event {
+  onset : Double
+  duration : Double?
+  text : String
+} derive(ToJson, @debug.Debug, @json.FromJson)
+
+pub struct FlatRun {
+  first_sample : Int
+  samples : Int
+  digital_value : Int
+  start : Double
+  end : Double
+} derive(ToJson, @debug.Debug)
+
+pub(all) enum Format {
+  Edf
+  Bdf
+} derive(Eq, ToJson, @debug.Debug)
+pub fn Format::width(Self) -> Int
+
+pub struct Gap {
+  after_record : Int
+  start : Double
+  end : Double
+} derive(ToJson, @debug.Debug)
+
+pub struct Header {
+  format : Format
+  continuity : Continuity
+  patient : String
+  recording : String
+  date : String
+  time : String
+  reserved : String
+  declared_records : Int
+  duration : Double
+  signals : Array[Signal]
+  bytes : Int
+  record_bytes : Int
+  offsets : Array[Int]
+} derive(@debug.Debug)
+
+pub(all) struct Record {
+  onset : Double
+  samples : Array[Array[Int]]
+  events : Array[Event]
+} derive(@debug.Debug)
+
+pub struct Recording {
+  header : Header
+  data : Bytes
+  records : Int
+  starts : Array[Double]
+  annotations : Array[Annotation]
+} derive(@debug.Debug)
+pub fn Recording::crop(Self, Int, Int) -> Self raise EdfError
+pub fn Recording::csv(Self, Array[Int], first_record? : Int, records? : Int, physical? : Bool) -> String raise EdfError
+pub fn Recording::digital(Self, Int, Int, Int) -> Int raise EdfError
+pub fn Recording::encode(Self) -> Bytes raise EdfError
+pub fn Recording::flat_runs(Self, Int, Int) -> Array[FlatRun] raise EdfError
+pub fn Recording::gaps(Self) -> Array[Gap]
+pub fn Recording::physical(Self, Int, Int, Int) -> Double raise EdfError
+pub fn Recording::sample_rate(Self, Int) -> Double raise EdfError
+pub fn Recording::sample_time(Self, Int, Int, Int) -> Double raise EdfError
+pub fn Recording::select(Self, Array[Int]) -> Self raise EdfError
+pub fn Recording::statistics(Self, Int) -> SignalStatistics raise EdfError
+pub fn Recording::to_plus(Self) -> Self raise EdfError
+
+pub(all) struct Signal {
+  label : String
+  transducer : String
+  unit : String
+  physical_min : Double
+  physical_max : Double
+  digital_min : Int
+  digital_max : Int
+  prefilter : String
+  samples_per_record : Int
+  reserved : String
+} derive(ToJson, @debug.Debug)
+pub fn Signal::is_annotation(Self) -> Bool
+pub fn Signal::to_digital(Self, Double) -> Int raise EdfError
+pub fn Signal::to_physical(Self, Int) -> Double raise EdfError
+
+pub struct SignalStatistics {
+  samples : Int
+  minimum : Double?
+  maximum : Double?
+  mean : Double?
+  variance : Double?
+  rms : Double?
+  below_range : Int
+  above_range : Int
+  at_minimum : Int
+  at_maximum : Int
+} derive(ToJson, @debug.Debug)
+
+pub(all) struct Tal {
+  onset : String
+  duration : String?
+  texts : Array[String]
+} derive(ToJson, @debug.Debug)
+
+// Type aliases
+
+// Traits
