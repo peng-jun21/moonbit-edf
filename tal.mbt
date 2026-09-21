@@ -57,6 +57,9 @@ pub fn parse_tals(data : Bytes) -> Array[Tal] raise EdfError {
       raise Invalid("TAL missing annotation separator")
     }
     let onset = text_field(data, start, at - start)
+    if onset.length() != at - start {
+      raise Invalid("spaces are forbidden in TAL onset")
+    }
     ignore(tal_number(onset, true))
     let duration = if data[at] == b'\x15' {
       at += 1
@@ -68,6 +71,9 @@ pub fn parse_tals(data : Bytes) -> Array[Tal] raise EdfError {
         raise Invalid("TAL duration missing separator")
       }
       let duration = text_field(data, start, at - start)
+      if duration.length() != at - start {
+        raise Invalid("spaces are forbidden in TAL duration")
+      }
       ignore(tal_number(duration, false))
       Some(duration)
     } else {

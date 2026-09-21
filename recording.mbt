@@ -18,6 +18,7 @@ pub fn decode(data : Bytes) -> Recording raise EdfError {
   }
   let starts = []
   let annotations = []
+  let annotation_only = h.signals.all(s => s.is_annotation())
   for r = 0; r < records; r = r + 1 {
     let mut onset = r.to_double() * h.duration
     let mut first = true
@@ -40,6 +41,12 @@ pub fn decode(data : Bytes) -> Recording raise EdfError {
           raise Invalid("missing first timekeeping TAL")
         }
         onset = tal_number(tals[0].onset, true)
+        if annotation_only &&
+          (tals[0].texts.length() < 2 || tals[0].texts[1].is_empty()) {
+          raise Invalid(
+            "annotation-only record needs an event in its first TAL",
+          )
+        }
         first = false
       }
       for tal in tals {
@@ -244,12 +251,27 @@ pub fn create(
   if continuity != Plain {
     for r in records {
       let tals : Array[Tal] = []
+      let first_texts = [""]
+      if signals.is_empty() {
+        if r.events.is_empty() ||
+          r.events[0].onset != r.onset ||
+          r.events[0].duration is Some(_) ||
+          r.events[0].text.is_empty() {
+          raise Invalid(
+            "annotation-only record requires a first untimed-duration event at record onset",
+          )
+        }
+        first_texts.push(r.events[0].text)
+      }
       tals.push({
         onset: time_text(r.onset, true),
         duration: None,
-        texts: [""],
+        texts: first_texts,
       })
-      for event in r.events {
+      for event_index = (if signals.is_empty() { 1 } else { 0 })
+          event_index < r.events.length()
+          event_index = event_index + 1 {
+        let event = r.events[event_index]
         tals.push({
           onset: time_text(event.onset, true),
           duration: match event.duration {
