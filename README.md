@@ -87,4 +87,4 @@ python tools/example-smoke.py
 
 已提供三系统CI配置；本机运行了JS/Wasm-GC测试和所有目标的静态检查。尚未执行远程CI、公开仓库、发布Mooncakes或正式参赛提交。
 
-MIT许可，独立实现并使用AI辅助开发，无复制第三方库源码。规范与编码前查重见 [PLAN](docs/PLAN.md)。pyedflib/EDFlib与NumPy仅开发对照依赖，不包装为本项目运行时核心。
+MIT许可，独立实现并使用AI辅助开发，无复制第三方库源码。规范与编码前查重见 [PLAN](docs/PLAN.md)，验证工具许可和合成样例来源见 [SOURCES](docs/SOURCES.md)。pyedflib/EDFlib与NumPy仅开发对照依赖，不包装为本项目运行时核心。

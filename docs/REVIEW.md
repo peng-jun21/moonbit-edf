@@ -2,6 +2,10 @@
 
 2026-09-21。完成编码前固定范围的本地实现和验证，尚未公开发布或获得主办方认可。
 
+2026-09-22 更新：当前工具链和源码散列见 `evidence/toolchain-20260922.json`，
+`local-checks.json` 是旧工具链历史快照。`differential.json` 已实际重跑；
+两后端各8组与README文件示例仍通过，远程CI未运行。
+
 参照MoonCurveFit的独立参考验证、真实CLI与边界文档，及gerberkit/pcap/vcd的领域数据工具组织；不以代码行数或测试数代替完整流程。
 
 | 固定范围 | 实际证据 |
@@ -14,7 +18,7 @@
 | 坏输入与资源 | 完整文件逐字节截断、畸形长度/数字、1000个确定性头变异、UTF-8/TAL/选择/日期边界 |
 | 用户流程 | README命令实际运行，每个写出文件由pyedflib读取；错误与已存在输出拒绝 |
 
-详见 `evidence/differential.json` 和 `evidence/local-checks.json`。8个核心测试块包含多组样例及循环语料；不是8种情况就算全面覆盖。独立脚本190项比较，CLI2项；另有README示例运行。
+详见 `evidence/differential.json` 和 `evidence/toolchain-20260922.json`。8个核心测试块包含多组样例及循环语料；不是8种情况就算全面覆盖。独立脚本190项比较，CLI2项；另有README示例运行。
 
 性能证据为4096与262144样本的文件解析+统计，记录本机单次耗时和参考结果。没有做宣传性吞吐推断，也不宣称优于其他语言库。
 
