@@ -9,7 +9,8 @@
 需要 MoonBit 与 Node 24。原验证使用 moonc 0.10.12；
 2026-09-22 已补显式 trait 方法声明，适配当前 0079 警告规则，
 并在 moon 0.1.20260920 / moonc 0.10.14+7d59c7ec9 上重新核验。
-旧证据保留日期，新工具链回执见 evidence/toolchain-20260922.json。
+旧证据保留日期，新工具链回执见 evidence/toolchain-20260922.json；
+后续宿主有界读取修复及当前源码散列见 evidence/host-input-20260922.json。
 
 ```sh
 moon check --target all --deny-warn
@@ -66,6 +67,8 @@ CSV 不把通道上采样到共同网格，每行包含通道、标签、记录�
 ## 边界
 
 - 完整文件最多256 MiB，4096通道、1000000记录、单记录8 MiB、1000000注释。整文件操作，不承诺恒定内存；上限是数据限额，不是进程内存保证。
+- Node对数据和选项在同一文件描述符上检查并有界读取；选项JSON最多1,000,000字节。
+  检测到读取期间增长或缩短则拒绝；不提供文件锁或同长度覆盖写的一致快照，请读取稳定文件。
 - 日期覆盖1985–2084，按Gregorian日历推进；不猜测无效日期、未知时区或夏令时。时间是文件记录的本地壁钟时间。
 - TAL 原始十进制时间在复制中保持；新建/重写采用100 ns精度，超精度修改报错。极长时间轴的Double运算仍受机器精度约束，相邻记录比较容差为100 ns。
 - 普通头字段是可打印ASCII，注释是UTF-8。写头字段过宽会报错，不截断名称或校准精度。plus患者身份子字段保持原文，不自动改写或认证其行政语义。
@@ -81,6 +84,7 @@ python -m venv .venv
 python -m pip install -r tools/requirements.txt
 python tools/differential.py
 python tools/example-smoke.py
+node tools/test-host-input.mjs
 ```
 
 本机用pyedflib 0.1.42（底层EDFlib）/NumPy生成16组EDF/BDF、普通/plus、正负增益和两种记录长度，再读取MoonBit写出的文件；190项对照检查、2项CLI检查，以及README示例通过。该版本pyedflib明确拒绝EDF+D，本项目的间断时间线使用独立`struct`字节样本与官方布局核验，不能说成通过了C库间断读取验证。详情见 [验收](docs/REVIEW.md) 和 `evidence/`。

@@ -6,6 +6,10 @@
 `local-checks.json` 是旧工具链历史快照。`differential.json` 已实际重跑；
 两后端各8组与README文件示例仍通过，远程CI未运行。
 
+后续宿主有界读取修复后，以 `evidence/host-input-20260922.json` 绑定当前源码。
+该回执验证MoonBit核心相对工具链回执未变，并记录宿主输入9项、独立对照和README示例复验；
+未把宿主专项修复说成重新运行核心两后端全量测试。
+
 参照MoonCurveFit的独立参考验证、真实CLI与边界文档，及gerberkit/pcap/vcd的领域数据工具组织；不以代码行数或测试数代替完整流程。
 
 | 固定范围 | 实际证据 |

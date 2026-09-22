@@ -5,10 +5,28 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { report, transform } from '../_build/js/release/build/cmd/bridge/bridge.js';
 
+function readBounded(filename,limit) {
+  const fd=fs.openSync(filename,'r');
+  try {
+    const stat=fs.fstatSync(fd);
+    if (!stat.isFile() || !Number.isSafeInteger(stat.size) || stat.size<0 || stat.size>limit)
+      throw new Error(`input must be a regular file <= ${limit} bytes`);
+    // Read from the checked descriptor, bounded by the observed size plus one
+    // sentinel byte. A separate path stat cannot cap readFileSync allocation.
+    const buffer=Buffer.alloc(stat.size+1);
+    let length=0;
+    while (length<buffer.length) {
+      const count=fs.readSync(fd,buffer,length,buffer.length-length,null);
+      if (count===0) break;
+      length+=count;
+    }
+    if (length!==stat.size) throw new Error('input changed size during read; retry a stable file');
+    return buffer.subarray(0,length);
+  } finally {fs.closeSync(fd);}
+}
+
 export function readFile(filename) {
-  const stat=fs.statSync(filename);
-  if (!stat.isFile() || stat.size>268435456) throw new Error('input must be a regular file <= 256 MiB');
-  return fs.readFileSync(filename);
+  return readBounded(filename,268435456);
 }
 
 export function writeTransform(input,output,options) {
@@ -30,8 +48,7 @@ function main(args) {
   const create=command==='create', write=writes.has(command);
   if (rest.length<(write?2:1) || rest.length>(create?2:write?3:2)) throw new Error('wrong argument count; use --help');
   const optionsPath=create?rest[1]:rest[write?2:1];
-  if (optionsPath && fs.statSync(optionsPath).size>1000000) throw new Error('options exceed one million bytes');
-  const options=optionsPath?JSON.parse(fs.readFileSync(optionsPath,'utf8')):{};
+  const options=optionsPath?JSON.parse(readBounded(optionsPath,1000000).toString('utf8')):{};
   if (!options || Array.isArray(options) || typeof options!=='object') throw new Error('options must be an object');
   options.command=command;
   if (write) console.log(JSON.stringify(writeTransform(create?null:rest[0],create?rest[0]:rest[1],options)));
