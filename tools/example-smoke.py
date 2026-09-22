@@ -25,6 +25,12 @@ with tempfile.TemporaryDirectory(prefix='moonedf-example-') as tmp:
             assert reader.datarecords_in_file==(3 if op=='select' else 2)
     rows=list(csv.DictReader(io.StringIO(command('csv',p/'demo.edf',ROOT/'examples/csv.json'))))
     assert len(rows)==18
+    window=json.loads(command('window',p/'demo.edf',ROOT/'examples/window.json'))
+    assert [(v['record'],v['sample']) for v in window['samples']]==[(0,2),(0,3),(1,0),(1,1),(1,2),(1,3),(2,0)]
+    assert window['gaps']==[]
+    window_rows=list(csv.DictReader(io.StringIO(command('window-csv',p/'demo.edf',ROOT/'examples/window-csv.json'))))
+    assert len(window_rows)==11
+    assert all(.5<=float(row['time_seconds'])<2.25 for row in window_rows)
     with pyedflib.EdfReader(str(p/'demo.edf')) as reader:
         np.testing.assert_array_equal(reader.readSignal(0,digital=True),[-32768,0,0,32767,10,10,10,10,1,2,3,4])
         assert reader.readAnnotations()[2][0]=='合成标记'

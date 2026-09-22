@@ -65,6 +65,27 @@ fn do_report(data : Bytes, text : String) -> String raise {
         "gaps": recording.gaps().to_json(),
       }
     "stats" => recording.statistics(required(o, "signal")).to_json()
+    "window" =>
+      recording
+      .time_window(
+        required(o, "signal"),
+        required(o, "start"),
+        required(o, "end"),
+        max_samples=optional(o, "max_samples", 65536),
+      )
+      .to_json()
+    "window-csv" =>
+      {
+        "text": recording
+        .window_csv(
+          required(o, "signals"),
+          required(o, "start"),
+          required(o, "end"),
+          physical=optional(o, "physical", true),
+          max_samples=optional(o, "max_samples", 65536),
+        )
+        .to_json(),
+      }
     "annotations" => recording.annotations.to_json()
     "gaps" => recording.gaps().to_json()
     "flat" =>

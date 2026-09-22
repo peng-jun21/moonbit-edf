@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "utc": "2026-09-22T09:13:45.371083+00:00",
+  "utc": "2026-09-22T10:09:09.993697+00:00",
   "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
   "platform": "Windows-11-10.0.26200-SP0",
   "pyedflib": "0.1.42",
@@ -9,7 +9,7 @@
   "checks": 190,
   "cli_checks": 2,
   "discontinuous_oracle": "pyedflib rejects EDF+D as discontinuous; independent struct timeline oracle used",
-  "duration_seconds": 1.565964698791504,
+  "duration_seconds": 1.8478496074676514,
   "matrix": [
     {
       "filetype": 0,
@@ -112,12 +112,12 @@
     {
       "samples": 4096,
       "file_bytes": 8704,
-      "parse_and_stats_ms": 2.9890000000000043
+      "parse_and_stats_ms": 3.360299999999995
     },
     {
       "samples": 262144,
       "file_bytes": 524800,
-      "parse_and_stats_ms": 17.098100000000017
+      "parse_and_stats_ms": 17.204200000000014
     }
   ]
 }

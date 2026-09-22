@@ -16,4 +16,6 @@
 
 examples/create.json及测试中的信号、患者占位值、日期和事件均为合成fixture；
 tools/differential.py自行生成参考文件，不分发临床数据或上游测试数据集。
+时间窗口专项 `tools/test-time-window.py` 使用Python标准库从字段布局生成合成字节，
+并独立逐样本枚举；不复制上游测试文件、不调用本库写出器。
 evidence仅记录检查结果、环境与源码散列。AI辅助开发保留真实提交作者。

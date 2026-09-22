@@ -141,8 +141,10 @@ pub fn Recording::sample_rate(Self, Int) -> Double raise EdfError
 pub fn Recording::sample_time(Self, Int, Int, Int) -> Double raise EdfError
 pub fn Recording::select(Self, Array[Int]) -> Self raise EdfError
 pub fn Recording::statistics(Self, Int) -> SignalStatistics raise EdfError
+pub fn Recording::time_window(Self, Int, Double, Double, max_samples? : Int) -> SignalWindow raise EdfError
 pub fn Recording::to_plus(Self) -> Self raise EdfError
 pub fn Recording::to_repr(Self) -> @debug.Repr
+pub fn Recording::window_csv(Self, Array[Int], Double, Double, physical? : Bool, max_samples? : Int) -> String raise EdfError
 
 pub(all) struct Signal {
   label : String
@@ -177,6 +179,18 @@ pub struct SignalStatistics {
 pub fn SignalStatistics::to_json(Self) -> Json
 pub fn SignalStatistics::to_repr(Self) -> @debug.Repr
 
+pub struct SignalWindow {
+  signal : Int
+  label : String
+  unit : String
+  start : Double
+  end : Double
+  samples : Array[TimedSample]
+  gaps : Array[Gap]
+} derive(ToJson, @debug.Debug)
+pub fn SignalWindow::to_json(Self) -> Json
+pub fn SignalWindow::to_repr(Self) -> @debug.Repr
+
 pub(all) struct Tal {
   onset : String
   duration : String?
@@ -184,6 +198,16 @@ pub(all) struct Tal {
 } derive(ToJson, @debug.Debug)
 pub fn Tal::to_json(Self) -> Json
 pub fn Tal::to_repr(Self) -> @debug.Repr
+
+pub struct TimedSample {
+  record : Int
+  sample : Int
+  time : Double
+  digital : Int
+  physical : Double
+} derive(ToJson, @debug.Debug)
+pub fn TimedSample::to_json(Self) -> Json
+pub fn TimedSample::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 

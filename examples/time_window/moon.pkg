@@ -1,0 +1,6 @@
+import {
+  "localreview/edf",
+  "moonbitlang/core/debug",
+}
+
+pkgtype(kind: "executable")
