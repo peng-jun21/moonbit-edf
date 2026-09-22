@@ -6,7 +6,10 @@
 
 ## 快速运行
 
-本机验证 MoonBit 0.10.12（2026-09-07）和 Node 24。
+需要 MoonBit 与 Node 24。原验证使用 moonc 0.10.12；
+2026-09-22 已补显式 trait 方法声明，适配当前 0079 警告规则，
+并在 moon 0.1.20260920 / moonc 0.10.14+7d59c7ec9 上重新核验。
+旧证据保留日期，新工具链回执见 evidence/toolchain-20260922.json。
 
 ```sh
 moon check --target all --deny-warn

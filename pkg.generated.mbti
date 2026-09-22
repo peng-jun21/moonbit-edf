@@ -25,6 +25,7 @@ pub suberror EdfError {
   Unsupported(String)
   Limit(String)
 } derive(@debug.Debug)
+pub fn EdfError::to_repr(Self) -> @debug.Repr
 
 // Types and methods
 pub struct Annotation {
@@ -34,12 +35,18 @@ pub struct Annotation {
   duration : Double?
   text : String
 } derive(ToJson, @debug.Debug)
+pub fn Annotation::to_json(Self) -> Json
+pub fn Annotation::to_repr(Self) -> @debug.Repr
 
 pub(all) enum Continuity {
   Plain
   Continuous
   Discontinuous
 } derive(Eq, ToJson, @debug.Debug)
+pub fn Continuity::equal(Self, Self) -> Bool
+pub fn Continuity::not_equal(Self, Self) -> Bool
+pub fn Continuity::to_json(Self) -> Json
+pub fn Continuity::to_repr(Self) -> @debug.Repr
 
 pub(all) struct DateTime {
   year : Int
@@ -52,12 +59,17 @@ pub(all) struct DateTime {
 pub fn DateTime::advance(Self, Int) -> Self raise EdfError
 pub fn DateTime::date_field(Self) -> String raise EdfError
 pub fn DateTime::time_field(Self) -> String raise EdfError
+pub fn DateTime::to_json(Self) -> Json
+pub fn DateTime::to_repr(Self) -> @debug.Repr
 
 pub(all) struct Event {
   onset : Double
   duration : Double?
   text : String
 } derive(ToJson, @debug.Debug, @json.FromJson)
+pub fn Event::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn Event::to_json(Self) -> Json
+pub fn Event::to_repr(Self) -> @debug.Repr
 
 pub struct FlatRun {
   first_sample : Int
@@ -66,11 +78,17 @@ pub struct FlatRun {
   start : Double
   end : Double
 } derive(ToJson, @debug.Debug)
+pub fn FlatRun::to_json(Self) -> Json
+pub fn FlatRun::to_repr(Self) -> @debug.Repr
 
 pub(all) enum Format {
   Edf
   Bdf
 } derive(Eq, ToJson, @debug.Debug)
+pub fn Format::equal(Self, Self) -> Bool
+pub fn Format::not_equal(Self, Self) -> Bool
+pub fn Format::to_json(Self) -> Json
+pub fn Format::to_repr(Self) -> @debug.Repr
 pub fn Format::width(Self) -> Int
 
 pub struct Gap {
@@ -78,6 +96,8 @@ pub struct Gap {
   start : Double
   end : Double
 } derive(ToJson, @debug.Debug)
+pub fn Gap::to_json(Self) -> Json
+pub fn Gap::to_repr(Self) -> @debug.Repr
 
 pub struct Header {
   format : Format
@@ -94,12 +114,14 @@ pub struct Header {
   record_bytes : Int
   offsets : Array[Int]
 } derive(@debug.Debug)
+pub fn Header::to_repr(Self) -> @debug.Repr
 
 pub(all) struct Record {
   onset : Double
   samples : Array[Array[Int]]
   events : Array[Event]
 } derive(@debug.Debug)
+pub fn Record::to_repr(Self) -> @debug.Repr
 
 pub struct Recording {
   header : Header
@@ -120,6 +142,7 @@ pub fn Recording::sample_time(Self, Int, Int, Int) -> Double raise EdfError
 pub fn Recording::select(Self, Array[Int]) -> Self raise EdfError
 pub fn Recording::statistics(Self, Int) -> SignalStatistics raise EdfError
 pub fn Recording::to_plus(Self) -> Self raise EdfError
+pub fn Recording::to_repr(Self) -> @debug.Repr
 
 pub(all) struct Signal {
   label : String
@@ -135,7 +158,9 @@ pub(all) struct Signal {
 } derive(ToJson, @debug.Debug)
 pub fn Signal::is_annotation(Self) -> Bool
 pub fn Signal::to_digital(Self, Double) -> Int raise EdfError
+pub fn Signal::to_json(Self) -> Json
 pub fn Signal::to_physical(Self, Int) -> Double raise EdfError
+pub fn Signal::to_repr(Self) -> @debug.Repr
 
 pub struct SignalStatistics {
   samples : Int
@@ -149,12 +174,16 @@ pub struct SignalStatistics {
   at_minimum : Int
   at_maximum : Int
 } derive(ToJson, @debug.Debug)
+pub fn SignalStatistics::to_json(Self) -> Json
+pub fn SignalStatistics::to_repr(Self) -> @debug.Repr
 
 pub(all) struct Tal {
   onset : String
   duration : String?
   texts : Array[String]
 } derive(ToJson, @debug.Debug)
+pub fn Tal::to_json(Self) -> Json
+pub fn Tal::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 
