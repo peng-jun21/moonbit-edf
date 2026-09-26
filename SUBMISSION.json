@@ -18,5 +18,9 @@
   "currentEvidenceScope": "Old Faker topic stopped; public PhysioNet events and exact 100ns event bounds; 1.28m samples checked by pyEDFlib",
   "topicChangeApproved": false,
   "publicRepositoryCreated": false,
-  "localModuleNameNeedsReview": true
+  "localModuleNameNeedsReview": true,
+  "useCase": "按公开EDF/BDF记录的事件时间提取多采样率通道窗口，保留间断和单位",
+  "diff": "不再申报与MoonFixture重叠的通用造数；EDF/pyEDFlib是成熟参考，增量为MoonBit事件窗口和交换核心",
+  "remainingRisk": "不做生理诊断；公开研究数据不是客户；换题与正式仓库待办理",
+  "reviewDecision": "停用旧题，替换EDF"
 }
