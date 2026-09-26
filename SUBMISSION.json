@@ -1,0 +1,22 @@
+{
+  "project": "edf",
+  "originalSubmission": "faker",
+  "title": "MoonEDF：保留事件时间和多采样率的数据交换库",
+  "module": "localreview/edf",
+  "version": "0.2.0",
+  "repository": null,
+  "license": "MIT",
+  "status": "旧选题停用；本地替代完成核验，换题与公开待团队办理",
+  "acceptance": "not established",
+  "localChangesPublished": false,
+  "actualUsersClaimed": false,
+  "remoteCIRunByThisTask": false,
+  "currentValidation": "evidence/epoch-20260927/LOCAL-CHECKS.json",
+  "currentEvidence": "evidence/epoch-20260927/LOCAL-CHECKS.json",
+  "proposalLines": 11,
+  "metadataReviewedOn": "2026-09-27",
+  "currentEvidenceScope": "Old Faker topic stopped; public PhysioNet events and exact 100ns event bounds; 1.28m samples checked by pyEDFlib",
+  "topicChangeApproved": false,
+  "publicRepositoryCreated": false,
+  "localModuleNameNeedsReview": true
+}
