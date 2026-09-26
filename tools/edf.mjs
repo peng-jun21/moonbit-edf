@@ -38,10 +38,10 @@ export function writeTransform(input,output,options) {
 }
 
 const writes=new Set(['copy','select','crop','plus','create']);
-const reads=new Set(['inspect','validate','stats','annotations','gaps','flat','csv','channel','window','window-csv']);
+const reads=new Set(['inspect','validate','stats','annotations','gaps','flat','csv','channel','window','window-csv','epoch']);
 function main(args) {
   if (!args.length || args[0]==='--help') {
-    console.log('MoonEDF\n  inspect|validate|stats|annotations|gaps|flat|csv|channel|window|window-csv INPUT [OPTIONS.json]\n  copy|select|crop|plus INPUT OUTPUT [OPTIONS.json]\n  create OUTPUT OPTIONS.json\nUse JSON options from README. Existing files are never overwritten.'); return;
+    console.log('MoonEDF\n  inspect|validate|stats|annotations|gaps|flat|csv|channel|window|window-csv|epoch INPUT [OPTIONS.json]\n  copy|select|crop|plus INPUT OUTPUT [OPTIONS.json]\n  create OUTPUT OPTIONS.json\nUse JSON options from README. Existing files are never overwritten.'); return;
   }
   const [command,...rest]=args;
   if (!writes.has(command) && !reads.has(command)) throw new Error('unknown command; use --help');

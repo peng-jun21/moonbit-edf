@@ -14,6 +14,10 @@
 已有替代：[PyEDFlib](https://pyedflib.readthedocs.io/en/latest/)。需要成熟Python生理信号分析链时应继续使用其生态。本库提供MoonBit内的记录/时间语义处理，不要求运行时加载PyEDFlib；不是宣称比其分析能力更全。
 “可以用MoonBit实现”不是需求证明；价值成立的前提是调用方确实需要在MoonBit程序内复用这些处理能力。
 
+## 0.2.0公开记录与核心变化
+
+现有合成例子之外，已核验PhysioNet官方哈希文件：64通道125秒30事件。新增核心event_window，支持事件索引、多通道共享限额、明确partial结果和100ns边界；独立对照见 [PUBLIC-EEG](docs/PUBLIC-EEG.md)。公开采集记录并不代表本项目有客户；旧基线例子保留如下。
+
 ## 评审可直接运行的证据
 
 在仓库根目录运行（无需Python参考工具）：

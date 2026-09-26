@@ -71,6 +71,18 @@ pub fn Event::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeErro
 pub fn Event::to_json(Self) -> Json
 pub fn Event::to_repr(Self) -> @debug.Repr
 
+pub struct EventWindow {
+  annotation_index : Int
+  annotation : Annotation
+  start : Double
+  end : Double
+  complete : Bool
+  samples : Int
+  channels : Array[SignalWindow]
+} derive(ToJson, @debug.Debug)
+pub fn EventWindow::to_json(Self) -> Json
+pub fn EventWindow::to_repr(Self) -> @debug.Repr
+
 pub struct FlatRun {
   first_sample : Int
   samples : Int
@@ -134,6 +146,7 @@ pub fn Recording::crop(Self, Int, Int) -> Self raise EdfError
 pub fn Recording::csv(Self, Array[Int], first_record? : Int, records? : Int, physical? : Bool) -> String raise EdfError
 pub fn Recording::digital(Self, Int, Int, Int) -> Int raise EdfError
 pub fn Recording::encode(Self) -> Bytes raise EdfError
+pub fn Recording::event_window(Self, Int, Array[Int], before~ : Double, after~ : Double, include_duration? : Bool, allow_partial? : Bool, max_samples? : Int) -> EventWindow raise EdfError
 pub fn Recording::flat_runs(Self, Int, Int) -> Array[FlatRun] raise EdfError
 pub fn Recording::gaps(Self) -> Array[Gap]
 pub fn Recording::physical(Self, Int, Int, Int) -> Double raise EdfError

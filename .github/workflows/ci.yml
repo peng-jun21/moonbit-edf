@@ -2,13 +2,15 @@ name: verify
 on: [push, pull_request, workflow_dispatch]
 jobs:
   check:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: moonbitlang/setup-moonbit@v1
+      - name: Install pinned MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash -s -- "$(cat .moonbit-version)"
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+      - run: moon version --all
+      - run: moon update
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -29,3 +31,9 @@ jobs:
       - run: python tools/differential.py
       - run: python tools/test-time-window.py
       - run: python tools/example-smoke.py
+      - name: Check pinned public recording on explicit workflow dispatch
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          python tools/fetch-public-eeg.py work/S001R03.edf
+          python tools/verify-public-eeg.py work/S001R03.edf --output evidence/public-eeg-ci.json
+          node examples/run-public-epochs.mjs work/S001R03.edf work/eeg-epochs

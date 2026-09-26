@@ -1,19 +1,18 @@
-# MoonEDF
+# MoonEDF · 0.2.0
 
 评审/首次使用请先看[实际任务、替代方案与可运行证据](REVIEW.md)：读取EDF/BDF与TAL事件，按事件前后时间选多通道样本，导出带原记录号、采样时间和物理单位的长表。
 
 纯 MoonBit 的 EDF、EDF+C/D、BDF、BDF+C/D 数据交换和记录检查工具。用于科研记录导入、通道筛选、事件时间窗提取、整记录裁剪和 CSV 交换，保留不同通道的采样率和间断。只处理数据，不做生理信号诊断。
 
-本地模块 `localreview/edf` 尚未发布。Node.js 只读写文件和处理命令参数；头解析、16/24 位样本、物理换算、TAL、时间操作和统计全部由 MoonBit 实现。
+本地模块 `localreview/edf` 尚未发布。Node.js 只读写文件和处理命令参数；头解析、16/24 位样本、物理换算、TAL、事件窗口、时间操作和统计全部由 MoonBit 实现。
+
+## 本轮公开输入与核心扩展
+
+新增纯MoonBit `event_window`：按注释索引提取多通道事件段，共享容量、默认拒绝缺失时间，并修复小数秒相加导致右端多收样本的问题。以PhysioNet固定EDF+记录与PyEDFlib对照，覆盖64通道、30事件、128万个数字样本和6万个物理值。可运行导出、数据署名和限制见 [PUBLIC-EEG](docs/PUBLIC-EEG.md)，[申报草稿](PROPOSAL.md)仍是本地候选，未公开或获准换题。
 
 ## 快速运行
 
-需要 MoonBit 与 Node 24。原验证使用 moonc 0.10.12；
-2026-09-22 已补显式 trait 方法声明，适配当前 0079 警告规则，
-并在 moon 0.1.20260920 / moonc 0.10.14+7d59c7ec9 上重新核验。
-旧证据保留日期，新工具链回执见 evidence/toolchain-20260922.json；
-宿主有界读取修复的历史回执见 evidence/host-input-20260922.json；
-加入时间窗口后的当前源码散列和检查命令见 evidence/time-window-20260922.json。
+当前固定 MoonBit 版本见 `.moonbit-version`，Node24。旧0.1.0工具链/合成验证记录保留在evidence；0.2.0当前检查见 [TESTING](TESTING.md)，不混用历史版本成绩。
 
 ```sh
 moon check --target all --deny-warn
