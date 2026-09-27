@@ -167,7 +167,8 @@ pub fn Recording::crop(
 
 ///|
 /// Promote a plain recording to plus without altering its samples/calibration text.
-/// Existing plus files are returned unchanged. The original recording ID is kept as an annotation.
+/// Existing plus files are returned unchanged. Plain identification strings are
+/// preserved as annotations; unknown plus patient subfields are explicitly X.
 pub fn Recording::to_plus(self : Recording) -> Recording raise EdfError {
   let h = self.header
   if h.continuity != Plain {
@@ -198,6 +199,9 @@ pub fn Recording::to_plus(self : Recording) -> Recording raise EdfError {
   put_text(out, 252, 4, (ns + 1).to_string())
   put_text(out, 236, 8, self.records.to_string())
   put_text(out, 88, 80, "Startdate " + dt.long_date() + " X X X")
+  // A plain patient field may be empty or free text. It is not a structured
+  // plus patient ID: do not infer sex, birthdate or administrative identity.
+  put_text(out, 8, 80, "X X X X")
   let vals = [
     label,
     "",
@@ -248,6 +252,13 @@ pub fn Recording::to_plus(self : Recording) -> Recording raise EdfError {
         onset: "+0",
         duration: None,
         texts: ["Original recording ID: " + h.recording],
+      })
+    }
+    if r == 0 && !h.patient.is_empty() {
+      tals.push({
+        onset: "+0",
+        duration: None,
+        texts: ["Original patient ID: " + h.patient],
       })
     }
     let b = encode_tals(tals, width)

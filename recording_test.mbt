@@ -23,6 +23,35 @@ fn signal(samples : Int, format : @edf.Format) -> @edf.Signal {
 }
 
 ///|
+test "plain promotion normalizes unknown plus identity and preserves free text" {
+  for format in [@edf.Edf, @edf.Bdf] {
+    for patient in ["", "Unstructured patient text", "X X X X"] {
+      let original = @edf.create(
+        [signal(2, format)],
+        [{ onset: 0.0, samples: [[-17, 655]], events: [], }],
+        1.0,
+        format~,
+        continuity=@edf.Plain,
+        patient~,
+      )
+      let promoted = @edf.decode(original.to_plus().encode())
+      assert_eq(promoted.header.patient, "X X X X")
+      assert_eq(promoted.digital(0, 0, 0), -17)
+      assert_eq(promoted.digital(0, 0, 1), 655)
+      let ids = promoted.annotations.filter(a => {
+        a.text.has_prefix("Original patient ID: ")
+      })
+      assert_eq(ids.length(), if patient.is_empty() { 0 } else { 1 })
+      if !patient.is_empty() {
+        assert_eq(ids[0].text, "Original patient ID: " + patient)
+        assert_eq(ids[0].onset, 0.0)
+      }
+      assert_eq(promoted.to_plus().encode(), promoted.encode())
+    }
+  }
+}
+
+///|
 test "EDF and BDF preserve extrema negative gain annotations and differing rates" {
   for format in [@edf.Edf, @edf.Bdf] {
     let s = signal(4, format)

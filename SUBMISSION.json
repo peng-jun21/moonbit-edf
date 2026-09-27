@@ -3,7 +3,7 @@
   "originalSubmission": "faker",
   "title": "MoonEDF：保留事件时间和多采样率的数据交换库",
   "module": "localreview/edf",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "repository": null,
   "license": "MIT",
   "status": "旧选题停用；本地替代完成核验，换题与公开待团队办理",
@@ -11,16 +11,19 @@
   "localChangesPublished": false,
   "actualUsersClaimed": false,
   "remoteCIRunByThisTask": false,
-  "currentValidation": "evidence/epoch-20260927/LOCAL-CHECKS.json",
-  "currentEvidence": "evidence/epoch-20260927/LOCAL-CHECKS.json",
-  "proposalLines": 11,
+  "currentValidation": "evidence/external-bdf-20260927/LOCAL-CHECKS.json",
+  "currentEvidence": "evidence/external-bdf-20260927/LOCAL-CHECKS.json",
+  "proposalLines": 13,
   "metadataReviewedOn": "2026-09-27",
-  "currentEvidenceScope": "Old Faker topic stopped; public PhysioNet events and exact 100ns event bounds; 1.28m samples checked by pyEDFlib",
+  "currentEvidenceScope": "External unchanged BDF against pyEDFlib: 20k digital, 15k physical, 12 windows, 4 transforms / 56k digital; plus identity header fix; prior public EDF event evidence retained",
   "topicChangeApproved": false,
   "publicRepositoryCreated": false,
   "localModuleNameNeedsReview": true,
   "useCase": "按公开EDF/BDF记录的事件时间提取多采样率通道窗口，保留间断和单位",
   "diff": "不再申报与MoonFixture重叠的通用造数；EDF/pyEDFlib是成熟参考，增量为MoonBit事件窗口和交换核心",
   "remainingRisk": "不做生理诊断；公开研究数据不是客户；换题与正式仓库待办理",
-  "reviewDecision": "停用旧题，替换EDF"
+  "reviewDecision": "停用旧题，替换EDF",
+  "historicalEvidencePointers": {
+    "epoch": "evidence/epoch-20260927/LOCAL-CHECKS.json"
+  }
 }

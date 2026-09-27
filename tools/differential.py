@@ -12,6 +12,7 @@ import sys
 import tempfile
 import time
 import warnings
+import argparse
 import numpy as np
 import pyedflib
 from pyedflib import highlevel
@@ -178,9 +179,15 @@ def run():
         assert p.returncode==2 and 'output exists' in p.stderr
         evidence=dict(status='passed',utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),python=sys.version,platform=platform.platform(),pyedflib=pyedflib.__version__,numpy=np.__version__,generated_cases=len(matrix),checks=len(checks),cli_checks=2,discontinuous_oracle=discontinuous_reference,duration_seconds=time.time()-started,matrix=matrix,benchmarks=[dict(samples=n,file_bytes=size,parse_and_stats_ms=results[i]['ms']) for i,n,size in benchmarks])
         (ROOT/'evidence').mkdir(exist_ok=True)
-        (ROOT/'evidence/differential.json').write_text(json.dumps(evidence,indent=2),encoding='utf-8')
+        result_path = Path(ARGS.output)
+        result_path.parent.mkdir(parents=True, exist_ok=True)
+        result_path.write_text(json.dumps(evidence,indent=2),encoding='utf-8')
         print(json.dumps({k:v for k,v in evidence.items() if k not in ('matrix','python')}))
 
 def assert_records(r,n):assert r['records']==n
 
-if __name__=='__main__':run()
+if __name__=='__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--output', default=str(ROOT/'evidence/differential.json'))
+    ARGS = parser.parse_args()
+    run()
