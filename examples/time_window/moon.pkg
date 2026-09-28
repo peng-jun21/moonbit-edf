@@ -1,5 +1,5 @@
 import {
-  "localreview/edf",
+  "peng-jun21/edf",
   "moonbitlang/core/debug",
 }
 

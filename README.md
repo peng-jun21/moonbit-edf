@@ -4,7 +4,7 @@
 
 纯 MoonBit 的 EDF、EDF+C/D、BDF、BDF+C/D 数据交换和记录检查工具。用于科研记录导入、通道筛选、事件时间窗提取、整记录裁剪和 CSV 交换，保留不同通道的采样率和间断。只处理数据，不做生理信号诊断。
 
-本地模块 `localreview/edf` 尚未发布。Node.js 只读写文件和处理命令参数；头解析、16/24 位样本、物理换算、TAL、事件窗口、时间操作和统计全部由 MoonBit 实现。
+本地模块 `peng-jun21/edf` 尚未发布。Node.js 只读写文件和处理命令参数；头解析、16/24 位样本、物理换算、TAL、事件窗口、时间操作和统计全部由 MoonBit 实现。
 
 ## 本轮公开输入与核心扩展
 
@@ -72,7 +72,7 @@ CSV 不把通道上采样到共同网格，每行包含通道、标签、记录�
 
 ## 库 API
 
-导入 `"localreview/edf" @edf`，公共接口见 `pkg.generated.mbti`。核心入口为 `parse_header`、`decode`、`create`、`parse_tals`/`encode_tals`；`Recording` 提供 `digital`/`physical`/`sample_time`/`sample_rate`、`time_window`/`window_csv`、`select`/`crop`/`to_plus` 和分析方法。
+导入 `"peng-jun21/edf" @edf`，公共接口见 `pkg.generated.mbti`。核心入口为 `parse_header`、`decode`、`create`、`parse_tals`/`encode_tals`；`Recording` 提供 `digital`/`physical`/`sample_time`/`sample_rate`、`time_window`/`window_csv`、`select`/`crop`/`to_plus` 和分析方法。
 
 `Signal` 描述数字与物理校准，`Record` 包含记录起点、每普通通道的整数样本数组和事件。`create` 自动加入 plus 注释通道。返回结构中的数组用于只读访问，不应原地修改内部元数据。失败抛出 `EdfError`，不会自动裁剪越界的物理值。
 
@@ -125,4 +125,4 @@ moon package
 
 本地核验：JS/Wasm-GC 各 16 项测试、release 构建和 CLI 示例通过；隔离 Python 3.12 环境以 pyEDFlib 0.1.42 重新核对外部 BDF，结果见 [本轮回执](evidence/acceptance-20260928/EXTERNAL-BDF-RECHECK.json)。`moon package` 已完成离线打包预检，它不等于已发布到 Mooncakes。
 
-公开交付（2026-09-28 核对）：尚无本项目正式公开仓库 URL 或 Mooncakes 版本；模块名 `localreview/edf` 是本地验证命名空间，正式发布前须改成对应账号的名称；换题资格、仓库、公开 CI 和首次发布均待团队办理，不能沿用旧题仓库链接。相关远端 CI 与赛事结果仍需以实际记录核对。项目许可见 [LICENSE](LICENSE)；如使用第三方材料，其来源和许可见仓内相应说明。
+公开交付（2026-09-28 核对）：尚无本项目正式公开仓库 URL 或 Mooncakes 版本；模块名 `peng-jun21/edf` 是本地验证命名空间，正式发布前须改成对应账号的名称；换题资格、仓库、公开 CI 和首次发布均待团队办理，不能沿用旧题仓库链接。相关远端 CI 与赛事结果仍需以实际记录核对。项目许可见 [LICENSE](LICENSE)；如使用第三方材料，其来源和许可见仓内相应说明。

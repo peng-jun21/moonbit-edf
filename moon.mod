@@ -1,4 +1,4 @@
-name = "localreview/edf"
+name = "peng-jun21/edf"
 
 version = "0.2.1"
 

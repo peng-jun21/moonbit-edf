@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "localreview/edf"
+package "peng-jun21/edf"
 
 import {
   "moonbitlang/core/debug",

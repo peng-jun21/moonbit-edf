@@ -2,7 +2,7 @@
   "project": "edf",
   "originalSubmission": "faker",
   "title": "MoonEDF：保留事件时间和多采样率的数据交换库",
-  "module": "localreview/edf",
+  "module": "peng-jun21/edf",
   "version": "0.2.1",
   "repository": null,
   "license": "MIT",
