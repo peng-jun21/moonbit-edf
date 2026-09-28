@@ -121,6 +121,6 @@ moon build --target js --release --deny-warn
 moon package
 ```
 
-本地核验：JS/Wasm-GC 各 16 项测试、release 构建和 CLI 示例通过；可选 pyedflib 外部参考本机未重跑。 `moon package` 已完成离线打包预检，它不等于已发布到 Mooncakes。
+本地核验：JS/Wasm-GC 各 16 项测试、release 构建和 CLI 示例通过；隔离 Python 3.12 环境以 pyEDFlib 0.1.42 重新核对外部 BDF，结果见 [本轮回执](evidence/acceptance-20260928/EXTERNAL-BDF-RECHECK.json)。`moon package` 已完成离线打包预检，它不等于已发布到 Mooncakes。
 
 公开交付（2026-09-28 核对）：尚无本项目正式公开仓库 URL 或 Mooncakes 版本；模块名 `localreview/edf` 是本地验证命名空间，正式发布前须改成对应账号的名称；换题资格、仓库、公开 CI 和首次发布均待团队办理，不能沿用旧题仓库链接。相关远端 CI 与赛事结果仍需以实际记录核对。项目许可见 [LICENSE](LICENSE)；如使用第三方材料，其来源和许可见仓内相应说明。

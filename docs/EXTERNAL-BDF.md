@@ -4,7 +4,7 @@
 
 ```sh
 python tools/fetch-external-bdf.py work/external-bdf
-moon build --target js --release
+moon build --target js --release --deny-warn
 python tools/verify-external-bdf.py work/external-bdf --output work/external-bdf-result.json
 ```
 
@@ -12,6 +12,8 @@ python tools/verify-external-bdf.py work/external-bdf --output work/external-bdf
 
 原实现把普通格式空白patient字段直接复制进BDF+，参考库因此拒绝转出的文件。依据 [EDF+ 2.1.3患者子字段规则](https://www.edfplus.info/specs/edfplus.html)，0.2.1把转换后的未知身份置为X X X X；原非空患者及记录标识保存在+0注释，记录字段写标准Startdate。既有plus保持原文。此转换不是匿名化，原身份文本仍可从注释取回。
 
+2026-09-28在本机隔离 Python 3.12 环境按上述固定哈希重新运行独立参考检查，25 项核对通过；完整结果及失败边界见 [本轮回执](../evidence/acceptance-20260928/EXTERNAL-BDF-RECHECK.json)。
+
 第二个test.bdf共467,456字节、73通道；MoonEDF可以读取，PyEDFlib报Number of Datarecords并拒绝，原字段是带前置空格的`  1     `。保留原始字节与错误；没有修改输入使参考库通过，也没有把148k样本计入独立对照。
 
-这里没有外部负值或间断BDF的证明；负极值/负增益由本轮重跑的合成矩阵覆盖，间断语义仍是既有独立字节布局验证。文件限额、身份字段语义和整文件内存边界沿用README。
+这里没有外部负值或间断BDF的证明；负极值/负增益由此前 2026-09-27 的合成矩阵覆盖，本轮未重跑该矩阵；间断语义仍是既有独立字节布局验证。文件限额、身份字段语义和整文件内存边界沿用README。

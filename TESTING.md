@@ -2,7 +2,7 @@
 
 已将 .moonbit-version 更新为 0.10.14+7d59c7ec9。使用该固定工具链执行 moon update、moon fmt --check、严格全目标检查、JS 与 Wasm-GC 测试（各16项）、release JS 构建、moon info、生成接口差异检查、9项 Node 宿主输入检查，以及 JS/Wasm-GC 时间窗口示例，全部通过。
 
-本次未重跑 PyEDFlib/NumPy 独立差分测试。本机只有 Python 3.14.4，而工作流固定 Python 3.12；在 Windows 临时目录安装 PyEDFlib 0.1.42 时，源代码包在生成安装元数据阶段失败。下方 2026-09-27 外部回执仅作为先前结果，不计入本次。
+本机原有 Python 3.14.4 安装 PyEDFlib 失败；随后改用 D 盘隔离 Python 3.12 环境，安装 PyEDFlib 0.1.42/NumPy 2.5.3，重跑外部 BDF 参考验证，25 项核对通过，见 [本轮回执](evidence/acceptance-20260928/EXTERNAL-BDF-RECHECK.json)。16 组合成差分矩阵和 PhysioNet 完整记录本轮没有重跑；下方 2026-09-27 回执仅作为先前结果。
 
 ## Prior 0.2.1 validation (2026-09-27)
 
