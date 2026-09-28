@@ -108,3 +108,19 @@ node tools/test-host-input.mjs
 已提供三系统CI配置；本机运行了JS/Wasm-GC测试和所有目标的静态检查。尚未执行远程CI、公开仓库、发布Mooncakes或正式参赛提交。
 
 MIT许可，独立实现并使用AI辅助开发，无复制第三方库源码。规范与编码前查重见 [PLAN](docs/PLAN.md)，验证工具许可和合成样例来源见 [SOURCES](docs/SOURCES.md)。pyedflib/EDFlib与NumPy仅开发对照依赖，不包装为本项目运行时核心。
+
+## 本地验收与公开交付（2026-09-28）
+
+核心实现使用 MoonBit；[固定编译器](.moonbit-version)为 `moonc 0.10.14+7d59c7ec9`。先按本文安装宿主依赖、运行 `moon update`，再从仓库根目录执行以下与 [CI](.github/workflows/ci.yml) 对齐的检查；可运行任务和适用边界见本文前面的示例与说明。
+
+```sh
+moon check --target all --deny-warn
+moon test --target js --deny-warn
+moon test --target wasm-gc --deny-warn
+moon build --target js --release --deny-warn
+moon package
+```
+
+本地核验：JS/Wasm-GC 各 16 项测试、release 构建和 CLI 示例通过；可选 pyedflib 外部参考本机未重跑。 `moon package` 已完成离线打包预检，它不等于已发布到 Mooncakes。
+
+公开交付（2026-09-28 核对）：尚无本项目正式公开仓库 URL 或 Mooncakes 版本；模块名 `localreview/edf` 是本地验证命名空间，正式发布前须改成对应账号的名称；换题资格、仓库、公开 CI 和首次发布均待团队办理，不能沿用旧题仓库链接。相关远端 CI 与赛事结果仍需以实际记录核对。项目许可见 [LICENSE](LICENSE)；如使用第三方材料，其来源和许可见仓内相应说明。
