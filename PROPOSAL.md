@@ -12,4 +12,4 @@
 
 0.2.1由外部MNE BDF发现并修复普通转plus的身份头问题；2026-09-28本地复跑PyEDFlib核对20,000原始数字样本、15,000物理值、12窗口和4种写出（56,000数字样本），回执在evidence/acceptance-20260928/EXTERNAL-BDF-RECHECK.json。该上游测试输入不冒称临床采集，另一被参考库拒绝的文件不计通过，见docs/EXTERNAL-BDF.md。
 
-**验收复现与交付状态（2026-09-28 本地）**：以 moonc 0.10.14+7d59c7ec9 通过 `--deny-warn` 检查、JS/Wasm-GC 测试和构建、最小样例和离线 `moon package`；正式仓库、换题资格、远端 CI 和 Mooncakes 首发待办理。命令与能力边界见 [README](README.md)，自动检查见 [CI](.github/workflows/ci.yml)；本地通过不代表赛事审核通过。
+**验收复现与交付状态（2026-09-28 本地）**：以 moonc 0.10.14+7d59c7ec9 通过 `--deny-warn` 检查、JS/Wasm-GC 测试和构建、最小样例和离线 `moon package`；同一代码在 Ubuntu-D 26.04 WSL2 全新解包后通过格式、接口生成、严格双后端检查及 Node 24.21.0 最小宿主入口；正式仓库、换题资格、远端 CI 和 Mooncakes 首发待办理。命令与能力边界见 [README](README.md)，自动检查见 [CI](.github/workflows/ci.yml)；本地通过不代表赛事审核通过。
