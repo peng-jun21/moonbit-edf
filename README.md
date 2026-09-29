@@ -1,14 +1,16 @@
 # MoonEDF · 0.2.1
 
+项目仓库：[https://github.com/peng-jun21/moonbit-edf](https://github.com/peng-jun21/moonbit-edf)
+
 评审/首次使用请先看[实际任务、替代方案与可运行证据](REVIEW.md)：读取EDF/BDF与TAL事件，按事件前后时间选多通道样本，导出带原记录号、采样时间和物理单位的长表。
 
 纯 MoonBit 的 EDF、EDF+C/D、BDF、BDF+C/D 数据交换和记录检查工具。用于科研记录导入、通道筛选、事件时间窗提取、整记录裁剪和 CSV 交换，保留不同通道的采样率和间断。只处理数据，不做生理信号诊断。
 
-本地模块 `peng-jun21/edf` 尚未发布。Node.js 只读写文件和处理命令参数；头解析、16/24 位样本、物理换算、TAL、事件窗口、时间操作和统计全部由 MoonBit 实现。
+模块 `peng-jun21/edf@0.2.1` 已发布。Node.js 只读写文件和处理命令参数；头解析、16/24 位样本、物理换算、TAL、事件窗口、时间操作和统计全部由 MoonBit 实现。
 
 ## 本轮公开输入与核心扩展
 
-新增纯MoonBit `event_window`：按注释索引提取多通道事件段，共享容量、默认拒绝缺失时间，并修复小数秒相加导致右端多收样本的问题。以PhysioNet固定EDF+记录与PyEDFlib对照，覆盖64通道、30事件、128万个数字样本和6万个物理值。可运行导出、数据署名和限制见 [PUBLIC-EEG](docs/PUBLIC-EEG.md)，[申报草稿](PROPOSAL.md)仍是本地候选，未公开或获准换题。
+新增纯MoonBit `event_window`：按注释索引提取多通道事件段，共享容量、默认拒绝缺失时间，并修复小数秒相加导致右端多收样本的问题。以PhysioNet固定EDF+记录与PyEDFlib对照，覆盖64通道、30事件、128万个数字样本和6万个物理值。可运行导出、数据署名和限制见 [PUBLIC-EEG](docs/PUBLIC-EEG.md)，[申报草稿](PROPOSAL.md)对应当前换题项目；是否获准换题尚未核实。
 
 0.2.1修复普通记录转plus时患者标识不符合结构要求的问题：plus头写未知子字段，原非空患者/记录标识保存在注释中，转换不是匿名化。外部MNE四通道BDF通过PyEDFlib全量读取与四种写出对照；另一个被参考库拒绝的输入单独记录，不计通过。见 [外部BDF与修复](docs/EXTERNAL-BDF.md)。
 
@@ -125,4 +127,4 @@ moon package
 
 本地核验：JS/Wasm-GC 各 16 项测试、release 构建和 CLI 示例通过；隔离 Python 3.12 环境以 pyEDFlib 0.1.42 重新核对外部 BDF，结果见 [本轮回执](evidence/acceptance-20260928/EXTERNAL-BDF-RECHECK.json)。`moon package` 已完成离线打包预检，它不等于已发布到 Mooncakes。
 
-公开交付（2026-09-28 核对）：尚无本项目正式公开仓库 URL 或 Mooncakes 版本；模块名 `peng-jun21/edf` 是拟交付账号形式的本地名称，正式发布前须核实账号归属和发布权限；换题资格、仓库、公开 CI 和首次发布均待申报人办理，不能沿用旧题仓库链接。相关远端 CI 与赛事结果仍需以实际记录核对。项目许可见 [LICENSE](LICENSE)；如使用第三方材料，其来源和许可见仓内相应说明。
+**公开状态（2026-09-29 核对）**：GitHub [公开仓库](https://github.com/peng-jun21/moonbit-edf)、[Mooncakes 0.2.1](https://mooncakes.io/docs/peng-jun21/edf@0.2.1) 已可访问；[CI 成功记录](https://github.com/peng-jun21/moonbit-edf/actions/runs/36561847814) 对应 `31ddb71bc637`。本次材料更新尚未推送；该远端 CI 对应所列公开提交。报名表一致性及赛事审核结果尚未核实。

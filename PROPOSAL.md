@@ -20,4 +20,4 @@ PyEDFlib/EDFlib 等已有成熟实现，科研分析用户可以继续使用它�
 
 仅支持 README 所列 EDF/BDF 子域与有界整文件处理；无滤波、分类、诊断、任意样本级文件重写或实时采集服务。零时长和间断特殊文件须按已记录边界处理。项目有公开样本证据，尚无确认使用方或临床用途验证；公开仓库、远端 CI 与 Mooncakes 0.2.1 均已上线。
 
-**验收复现与交付状态（2026-09-28 本地）**：以 moonc 0.10.14+7d59c7ec9 通过 `--deny-warn` 检查、JS/Wasm-GC 测试和构建、最小样例和离线 `moon package`；同一代码在 Ubuntu-D 26.04 WSL2 全新解包后通过格式、接口生成、严格双后端检查及 Node 24.21.0 最小宿主入口；公开仓库已上线、远端 CI（ubuntu-latest）通过、Mooncakes 已发布 0.2.1；换题资格与表单更新按赛事流程办理。命令与能力边界见 [README](README.md)，自动检查见 [CI](.github/workflows/ci.yml)；本地通过不代表赛事审核通过。
+**公开状态（2026-09-29 核对）**：GitHub [公开仓库](https://github.com/peng-jun21/moonbit-edf)、[Mooncakes 0.2.1](https://mooncakes.io/docs/peng-jun21/edf@0.2.1) 已可访问；[CI 成功记录](https://github.com/peng-jun21/moonbit-edf/actions/runs/36561847814) 对应 `31ddb71bc637`。本次材料更新尚未推送；该远端 CI 对应所列公开提交。报名表一致性及赛事审核结果尚未核实。
