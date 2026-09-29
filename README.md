@@ -16,7 +16,7 @@
 
 ## 快速运行
 
-当前固定 MoonBit 版本见 `.moonbit-version`，Node24。旧0.1.0工具链/合成验证记录保留在evidence；0.2.1当前检查见 [TESTING](TESTING.md)，不混用历史版本成绩。
+当前固定 MoonBit 版本见 `.moonbit-version`，Node24。旧0.1.0工具链/合成验证记录保留在evidence；本地交付 0.2.2 仅补全仓库地址元数据，沿用 0.2.1 实现的检查，见 [TESTING](TESTING.md)；旧版记录按日期和范围单列。
 
 ```sh
 moon check --target all --deny-warn
