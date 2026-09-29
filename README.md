@@ -1,6 +1,6 @@
 # MoonEDF · 0.2.1
 
-项目仓库：[https://github.com/peng-jun21/moonbit-edf](https://github.com/peng-jun21/moonbit-edf)
+项目仓库：[https://github.com/peng-jun21/moonbit-edf](https://github.com/peng-jun21/moonbit-edf) 本地交付版 0.2.2 仅补全已存在公开仓库的包元数据地址，算法未改；尚未推送或发布，公开版仍为 0.2.1。
 
 评审/首次使用请先看[实际任务、替代方案与可运行证据](REVIEW.md)：读取EDF/BDF与TAL事件，按事件前后时间选多通道样本，导出带原记录号、采样时间和物理单位的长表。
 

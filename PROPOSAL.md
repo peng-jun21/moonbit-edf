@@ -1,6 +1,6 @@
 # MoonEDF：保留事件时间和多采样率的数据交换库
 
-本地模块 `peng-jun21/edf@0.2.1`，拟替换因与 MoonFixture 重叠而停用的 Faker 选题。公开仓库：https://github.com/peng-jun21/moonbit-edf。
+本地模块 `peng-jun21/edf@0.2.1`，拟替换因与 MoonFixture 重叠而停用的 Faker 选题。公开仓库：https://github.com/peng-jun21/moonbit-edf。 本地交付版 0.2.2 仅补全已存在公开仓库的包元数据地址，算法未改；尚未推送或发布，公开版仍为 0.2.1。
 
 ## 真实数据任务与实现
 
