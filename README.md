@@ -1,4 +1,4 @@
-# MoonEDF · 0.2.1
+# MoonEDF · 0.2.2
 
 项目仓库：[https://github.com/peng-jun21/moonbit-edf](https://github.com/peng-jun21/moonbit-edf) 本地交付版 0.2.2 仅补全已存在公开仓库的包元数据地址，算法未改；尚未推送或发布，公开版仍为 0.2.1。
 
@@ -6,7 +6,7 @@
 
 纯 MoonBit 的 EDF、EDF+C/D、BDF、BDF+C/D 数据交换和记录检查工具。用于科研记录导入、通道筛选、事件时间窗提取、整记录裁剪和 CSV 交换，保留不同通道的采样率和间断。只处理数据，不做生理信号诊断。
 
-模块 `peng-jun21/edf@0.2.1` 已发布。Node.js 只读写文件和处理命令参数；头解析、16/24 位样本、物理换算、TAL、事件窗口、时间操作和统计全部由 MoonBit 实现。
+模块 `peng-jun21/edf@0.2.2` 已发布。Node.js 只读写文件和处理命令参数；头解析、16/24 位样本、物理换算、TAL、事件窗口、时间操作和统计全部由 MoonBit 实现。
 
 ## 本轮公开输入与核心扩展
 
